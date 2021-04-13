@@ -27,11 +27,13 @@ namespace BREWCITY.Controllers
             return View();
         }
      
-        public async Task<IActionResult> GetList(string state)
+        public async Task<IActionResult> GetList(string state, string city)
         {
-            state = "Texas";
+           state = "New Mexico";
            var actionResult = await _getLocalBreweriesServices.GetLocalBreweries(state);
-            JsonBrewery[] actionResultArray = actionResult.ToArray();
+            city = "Albuquerque";
+            var filteredResult = actionResult.Where(b => b.City == city).ToList();
+            JsonBrewery[] actionResultArray = filteredResult.ToArray();
             return View(actionResultArray);
         }
 
